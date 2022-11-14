@@ -32,8 +32,9 @@ async def top_up(call: types.CallbackQuery):
 async def choice_pay_type(call: types.CallbackQuery):
     pay_type = call.data.split(':')[1]
     if pay_type == 'qiwi':
-        await bot.send_message(call.from_user.id, f'Введите сумму пополнения:\n<i>Минимальная сумма - 1000.00₽</i>')
-        await StoragePayQiwi.price.set()
+        await bot.send_message(call.from_user.id, f'Платёжная система на тех.работах, укажите другую систему для пополнения')
+        #await bot.send_message(call.from_user.id, f'Введите сумму пополнения:\n<i>Минимальная сумма - 1000.00₽</i>')
+        #await StoragePayQiwi.price.set()
     elif pay_type == 'card':
         await bot.send_message(call.from_user.id, f'Введите сумму пополнения:\n<i>Минимальная сумма - 1000.00₽</i>')
         await StoragePayCard.price.set()
